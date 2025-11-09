@@ -1,0 +1,19 @@
+# // ZeaZDev [Backend Python Dependencies] //
+# // Project: Auto Bot Trader i18n //
+# // Version: 1.0.0 (Omega Scaffolding) //
+# // Author: ZeaZDev Meta-Intelligence (Generated) //
+# // --- DO NOT EDIT HEADER --- //
+fastapi==0.110.1
+uvicorn==0.29.0
+celery==5.3.6
+redis==5.0.1
+ccxt==4.3.74
+cryptography==42.0.4
+pydantic==2.6.4
+python-dotenv==1.0.1
+prisma==0.11.0
+psycopg2-binary==2.9.9
+tenacity==8.2.3
+httpx==0.27.0
+numpy==1.26.4
+pandas==2.2.1

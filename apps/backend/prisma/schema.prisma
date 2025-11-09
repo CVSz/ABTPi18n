@@ -1,0 +1,108 @@
+// ZeaZDev [Database Schema Prisma] //
+// Project: Auto Bot Trader i18n //
+// Version: 1.0.0 (Omega Scaffolding) //
+// Author: ZeaZDev Meta-Intelligence (Generated) //
+// --- DO NOT EDIT HEADER --- //
+
+generator client {
+  provider = "prisma-client-py"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                Int                 @id @default(autoincrement())
+  email             String              @unique
+  createdAt         DateTime            @default(now())
+  exchangeKeys      ExchangeKey[]
+  botRuns           BotRun[]
+  tradeLogs         TradeLog[]
+  rentalContracts   RentalContract[]
+  telegramLink      TelegramLink?
+  promptpayTopups   PromptPayTopup[]
+  modules           ModuleRegistration[]
+}
+
+model ExchangeKey {
+  id             Int      @id @default(autoincrement())
+  exchange       String
+  encrypted_key  String
+  iv_key         String
+  encrypted_secret String
+  iv_secret      String
+  createdAt      DateTime @default(now())
+  ownerId        Int?
+  owner          User?    @relation(fields: [ownerId], references: [id])
+}
+
+model Strategy {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  description String?
+  enabled     Boolean  @default(true)
+  createdAt   DateTime @default(now())
+}
+
+model BotRun {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  user        User     @relation(fields: [userId], references: [id])
+  strategy    String
+  symbol      String
+  timeframe   String
+  status      String   @default("RUNNING")
+  startedAt   DateTime @default(now())
+  stoppedAt   DateTime?
+}
+
+model TradeLog {
+  id          Int      @id @default(autoincrement())
+  botRunId    Int
+  botRun      BotRun   @relation(fields: [botRunId], references: [id])
+  side        String
+  quantity    Float
+  price       Float
+  pnl         Float     @default(0)
+  createdAt   DateTime  @default(now())
+}
+
+model RentalContract {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  user        User     @relation(fields: [userId], references: [id])
+  plan        String
+  expiry      DateTime
+  status      String   @default("ACTIVE")
+  createdAt   DateTime @default(now())
+}
+
+model PromptPayTopup {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  user        User     @relation(fields: [userId], references: [id])
+  amount      Float
+  currency    String   @default("THB")
+  status      String   @default("PENDING")
+  createdAt   DateTime @default(now())
+  confirmedAt DateTime?
+}
+
+model ModuleRegistration {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  user        User     @relation(fields: [userId], references: [id])
+  moduleName  String
+  enabled     Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+}
+
+model TelegramLink {
+  id          Int      @id @default(autoincrement())
+  userId      Int      @unique
+  user        User     @relation(fields: [userId], references: [id])
+  chatId      String
+  createdAt   DateTime  @default(now())
+}

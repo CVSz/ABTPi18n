@@ -1,0 +1,14 @@
+{
+  "dashboard.title": "My Dashboard",
+  "dashboard.pnl": "Profit & Loss",
+  "settings.title": "API Key Settings",
+  "settings.exchange": "Exchange",
+  "settings.api_key": "API Key",
+  "settings.api_secret": "API Secret",
+  "settings.submit": "Save Securely",
+  "bot.start": "Start Bot",
+  "bot.stop": "Stop Bot",
+  "strategies.list": "Available Strategies",
+  "rental.expiry": "Rental Expiry",
+  "topup.action": "Top-up via PromptPay"
+}
