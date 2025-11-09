@@ -2,8 +2,8 @@
 
 ### Quick Links
 - [Phase 4 Guide](PHASE4_GUIDE.md)
-- [Phase 3 Summary](PHASE3_SUMMARY.md)
-- [Roadmap](ROADMAP.md)
+- [Phase 3 Summary](../phase3/PHASE3_SUMMARY.md)
+- [Roadmap](../../guides/ROADMAP.md)
 
 ## Phase 4 Objectives
 

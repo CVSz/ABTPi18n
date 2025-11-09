@@ -25,14 +25,14 @@ StrategyRegistry.register(RSICrossStrategy)
 - **Breakout Strategy** (`BREAKOUT`) - ตรวจจับการทะลุราคาสูง/ต่ำพร้อมการยืนยันด้วย volume
 - **VWAP Strategy** (`VWAP`) - กลยุทธ์ Volume Weighted Average Price
 
-รายละเอียดเพิ่มเติมดูที่ [PHASE2_SUMMARY.md](PHASE2_SUMMARY.md)
+รายละเอียดเพิ่มเติมดูที่ [PHASE2_SUMMARY.md](../phases/phase2/PHASE2_SUMMARY.md)
 
 ## Enhanced Risk Manager
 เฟส 2 ได้เพิ่ม `EnhancedRiskManager` ที่รวม:
 - **Max Drawdown Tracker** - ติดตามและหยุดการเทรดเมื่อ drawdown เกินที่กำหนด
 - **Circuit Breaker** - หยุดการเทรดหลังขาดทุนติดต่อกัน และจำกัดจำนวนเทรดต่อชั่วโมง
 
-ดูวิธีการใช้งานและตั้งค่าได้ที่ [PHASE2_GUIDE.md](PHASE2_GUIDE.md)
+ดูวิธีการใช้งานและตั้งค่าได้ที่ [PHASE2_GUIDE.md](../phases/phase2/PHASE2_GUIDE.md)
 
 ## 3. การเข้าถึงข้อมูล
 `ticker_data`: ประกอบด้วย OHLCV / closes / volumes (ตามการเตรียมใน BotRunner)

@@ -5,8 +5,8 @@ Phase 4 focuses on monetization features, advanced portfolio management, and com
 
 ### Quick Links
 - [Phase 4 Summary](PHASE4_SUMMARY.md)
-- [Phase 3 Summary](PHASE3_SUMMARY.md)
-- [Roadmap](ROADMAP.md)
+- [Phase 3 Summary](../phase3/PHASE3_SUMMARY.md)
+- [Roadmap](../../guides/ROADMAP.md)
 
 ## New Features
 
@@ -913,8 +913,8 @@ According to the roadmap, Phase 5 includes:
 ## Support
 
 For issues or questions:
-- Check [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines
-- Review [SECURITY.md](SECURITY.md) for security policies
+- Check [CONTRIBUTING.md](../../guides/CONTRIBUTING.md) for contribution guidelines
+- Review [SECURITY.md](../../guides/SECURITY.md) for security policies
 - Check plugin marketplace for community plugins
 - Open an issue on GitHub for bugs or feature requests
 - Join our Discord community for discussions

@@ -57,35 +57,33 @@ flowchart LR
 - ดู PnL: Dashboard ดึง `/dashboard/pnl`
 
 ## ความปลอดภัย
-ดูไฟล์ [SECURITY.md](SECURITY.md)
+ดูไฟล์ [SECURITY.md](docs/guides/SECURITY.md)
 
 ## กลยุทธ์
-เพิ่มไฟล์ใหม่ใน `src/trading/strategies/` แล้ว `StrategyRegistry.register(YourStrategyClass)`
+เพิ่มไฟล์ใหม่ใน `src/trading/strategies/` แล้ว `StrategyRegistry.register(YourStrategyClass)`  
+ดูคู่มือการพัฒนากลยุทธ์ที่ [STRATEGY_GUIDE.md](docs/strategy/STRATEGY_GUIDE.md)
 
-## เอกสาร (Documentation)
-- [PHASE6_IMPLEMENTATION_SUMMARY.md](PHASE6_IMPLEMENTATION_SUMMARY.md) — สรุปการสร้างเฟส 6 (เสร็จแล้ว ✅)
-- [PHASE6_SUMMARY.md](PHASE6_SUMMARY.md) — สรุปแผนงานเฟส 6 (เสร็จแล้ว ✅)
-- [PHASE6_GUIDE.md](PHASE6_GUIDE.md) — คู่มือการใช้งานฟีเจอร์เฟส 6
-- [PHASE6_QUICK_START.md](PHASE6_QUICK_START.md) — คู่มือเริ่มต้นอย่างรวดเร็วเฟส 6
-- [PHASE5_IMPLEMENTATION_SUMMARY.md](PHASE5_IMPLEMENTATION_SUMMARY.md) — สรุปการสร้างเฟส 5 (เสร็จแล้ว ✅)
-- [PHASE5_SUMMARY.md](PHASE5_SUMMARY.md) — สรุปแผนงานเฟส 5 (เสร็จแล้ว ✅)
-- [PHASE5_GUIDE.md](PHASE5_GUIDE.md) — คู่มือการใช้งานฟีเจอร์เฟส 5
-- [DR_FAILOVER_STRATEGY.md](DR_FAILOVER_STRATEGY.md) — กลยุทธ์การกู้คืนจากภัยพิบัติ
-- [PHASE4_IMPLEMENTATION_SUMMARY.md](PHASE4_IMPLEMENTATION_SUMMARY.md) — สรุปการสร้างเฟส 4 (เสร็จแล้ว ✅)
-- [PHASE4_SUMMARY.md](PHASE4_SUMMARY.md) — สรุปแผนงานเฟส 4 (เสร็จแล้ว ✅)
-- [PHASE4_GUIDE.md](PHASE4_GUIDE.md) — คู่มือการใช้งานฟีเจอร์เฟส 4
-- [PHASE3_SUMMARY.md](PHASE3_SUMMARY.md) — สรุปแผนงานเฟส 3 (เสร็จแล้ว ✅)
-- [PHASE3_GUIDE.md](PHASE3_GUIDE.md) — คู่มือการใช้งานฟีเจอร์เฟส 3
-- [PHASE2_SUMMARY.md](PHASE2_SUMMARY.md) — สรุปสิ่งที่ทำในเฟส 2
-- [PHASE2_GUIDE.md](PHASE2_GUIDE.md) — คู่มือการใช้งานฟีเจอร์เฟส 2
-- [ROADMAP.md](ROADMAP.md) — สถานะและแผนงาน
-- [STRATEGY_GUIDE.md](STRATEGY_GUIDE.md) — คู่มือการพัฒนากลยุทธ์
+## 📚 เอกสาร (Documentation)
 
-## Roadmap
-ดูไฟล์ [ROADMAP.md](ROADMAP.md)
+เอกสารทั้งหมดได้จัดระเบียบไว้ในโฟลเดอร์ [`docs/`](docs/) แล้ว  
+👉 **[ดูเอกสารทั้งหมด](docs/README.md)**
 
-## การตั้งค่า GitHub
-ดูไฟล์ [GITHUB-SETUP.md](GITHUB-SETUP.md)
+### เอกสารหลัก
+- [คู่มือการพัฒนา (Contributing)](docs/guides/CONTRIBUTING.md) — Development setup and workflow
+- [แผนงาน (Roadmap)](docs/guides/ROADMAP.md) — สถานะและแผนงานทั้งหมด
+- [ความปลอดภัย (Security)](docs/guides/SECURITY.md) — Security model และ best practices
 
-## Installer
-ดูไฟล์ `install.sh` และเอกสารระบบปฏิบัติการใน `INSTALLER_PLATFORM_REQUIREMENTS.md`
+### การติดตั้งและตั้งค่า
+- [GitHub Setup](docs/setup/GITHUB-SETUP.md) — การตั้งค่า GitHub Secrets
+- [Platform Requirements](docs/setup/INSTALLER_PLATFORM_REQUIREMENTS.md) — ข้อกำหนดระบบปฏิบัติการ
+
+### กลยุทธ์และ DR
+- [Strategy Guide](docs/strategy/STRATEGY_GUIDE.md) — คู่มือการพัฒนากลยุทธ์
+- [DR/Failover Strategy](docs/strategy/DR_FAILOVER_STRATEGY.md) — กลยุทธ์การกู้คืนจากภัยพิบัติ
+
+### เอกสารแต่ละ Phase
+- **Phase 6** (ML/Intelligence): [Guide](docs/phases/phase6/PHASE6_GUIDE.md) | [Summary](docs/phases/phase6/PHASE6_SUMMARY.md) | [Implementation](docs/phases/phase6/PHASE6_IMPLEMENTATION_SUMMARY.md) | [Quick Start](docs/phases/phase6/PHASE6_QUICK_START.md)
+- **Phase 5** (Compliance): [Guide](docs/phases/phase5/PHASE5_GUIDE.md) | [Summary](docs/phases/phase5/PHASE5_SUMMARY.md) | [Implementation](docs/phases/phase5/PHASE5_IMPLEMENTATION_SUMMARY.md) | [Quick Start](docs/phases/phase5/PHASE5_QUICK_START.md) | [Migration](docs/phases/phase5/PHASE5_MIGRATION_GUIDE.md)
+- **Phase 4** (Monetization): [Guide](docs/phases/phase4/PHASE4_GUIDE.md) | [Summary](docs/phases/phase4/PHASE4_SUMMARY.md) | [Implementation](docs/phases/phase4/PHASE4_IMPLEMENTATION_SUMMARY.md)
+- **Phase 3** (i18n & Auth): [Guide](docs/phases/phase3/PHASE3_GUIDE.md) | [Summary](docs/phases/phase3/PHASE3_SUMMARY.md) | [Implementation](docs/phases/phase3/PHASE3_IMPLEMENTATION_SUMMARY.md)
+- **Phase 2** (Strategy Engine): [Guide](docs/phases/phase2/PHASE2_GUIDE.md) | [Summary](docs/phases/phase2/PHASE2_SUMMARY.md)

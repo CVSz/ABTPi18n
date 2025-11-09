@@ -5,8 +5,8 @@ Phase 3 focuses on internationalization (i18n) enhancements, authentication inte
 
 ### Quick Links
 - [Phase 3 Summary](PHASE3_SUMMARY.md)
-- [Phase 2 Summary](PHASE2_SUMMARY.md)
-- [Roadmap](ROADMAP.md)
+- [Phase 2 Summary](../phase2/PHASE2_SUMMARY.md)
+- [Roadmap](../../guides/ROADMAP.md)
 
 ## New Features
 
@@ -296,6 +296,6 @@ According to the roadmap, Phase 4 includes:
 ## Support
 
 For issues or questions:
-- Check [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines
-- Review [SECURITY.md](SECURITY.md) for security policies
+- Check [CONTRIBUTING.md](../../guides/CONTRIBUTING.md) for contribution guidelines
+- Review [SECURITY.md](../../guides/SECURITY.md) for security policies
 - Open an issue on GitHub for bugs or feature requests

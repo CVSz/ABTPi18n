@@ -643,7 +643,7 @@ For issues or questions about Phase 5 features:
 ## Additional Resources
 
 - [PHASE5_SUMMARY.md](PHASE5_SUMMARY.md) - Technical specifications
-- [SECURITY.md](SECURITY.md) - Security guidelines
-- [ROADMAP.md](ROADMAP.md) - Platform roadmap
+- [SECURITY.md](../../guides/SECURITY.md) - Security guidelines
+- [ROADMAP.md](../../guides/ROADMAP.md) - Platform roadmap
 - [Prometheus Documentation](https://prometheus.io/docs/)
 - [PostgreSQL Backup Guide](https://www.postgresql.org/docs/current/backup.html)

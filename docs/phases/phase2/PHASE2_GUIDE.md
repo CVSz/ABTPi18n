@@ -5,8 +5,8 @@ Phase 2 adds advanced trading strategies, enhanced risk management, streaming ma
 
 ### Quick Links
 - [Phase 2 Summary](PHASE2_SUMMARY.md)
-- [Roadmap](ROADMAP.md)
-- [Strategy Guide](STRATEGY_GUIDE.md)
+- [Roadmap](../../guides/ROADMAP.md)
+- [Strategy Guide](../../strategy/STRATEGY_GUIDE.md)
 
 ## New Features
 
