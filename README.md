@@ -72,6 +72,7 @@ flowchart LR
 - [คู่มือการพัฒนา (Contributing)](docs/guides/CONTRIBUTING.md) — Development setup and workflow
 - [แผนงาน (Roadmap)](docs/guides/ROADMAP.md) — สถานะและแผนงานทั้งหมด
 - [ความปลอดภัย (Security)](docs/guides/SECURITY.md) — Security model และ best practices
+- [Release Process](docs/guides/RELEASE.md) — How to create releases and publish packages
 
 ### การติดตั้งและตั้งค่า
 - [GitHub Setup](docs/setup/GITHUB-SETUP.md) — การตั้งค่า GitHub Secrets
