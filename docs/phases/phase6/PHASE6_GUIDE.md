@@ -706,6 +706,6 @@ For issues or questions about Phase 6 ML features:
 
 - [PHASE6_SUMMARY.md](PHASE6_SUMMARY.md) - Technical specifications
 - [PHASE6_IMPLEMENTATION_SUMMARY.md](PHASE6_IMPLEMENTATION_SUMMARY.md) - Implementation details
-- [ROADMAP.md](ROADMAP.md) - Platform roadmap
+- [ROADMAP.md](../../guides/ROADMAP.md) - Platform roadmap
 - [Scikit-learn Documentation](https://scikit-learn.org/)
 - [Stable-Baselines3 Documentation](https://stable-baselines3.readthedocs.io/)

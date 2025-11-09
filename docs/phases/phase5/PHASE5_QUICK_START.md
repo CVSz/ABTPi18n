@@ -123,7 +123,7 @@ done
 - **Technical Details**: [PHASE5_SUMMARY.md](PHASE5_SUMMARY.md)  
 - **Implementation**: [PHASE5_IMPLEMENTATION_SUMMARY.md](PHASE5_IMPLEMENTATION_SUMMARY.md)
 - **Migration**: [PHASE5_MIGRATION_GUIDE.md](PHASE5_MIGRATION_GUIDE.md)
-- **DR Strategy**: [DR_FAILOVER_STRATEGY.md](DR_FAILOVER_STRATEGY.md)
+- **DR Strategy**: [DR_FAILOVER_STRATEGY.md](../../strategy/DR_FAILOVER_STRATEGY.md)
 
 ## Security Best Practices
 

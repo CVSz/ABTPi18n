@@ -2,8 +2,8 @@
 
 ### Quick Links
 - [Phase 2 Guide](PHASE2_GUIDE.md)
-- [Roadmap](ROADMAP.md)
-- [Strategy Guide](STRATEGY_GUIDE.md)
+- [Roadmap](../../guides/ROADMAP.md)
+- [Strategy Guide](../../strategy/STRATEGY_GUIDE.md)
 
 ## Completed Tasks
 

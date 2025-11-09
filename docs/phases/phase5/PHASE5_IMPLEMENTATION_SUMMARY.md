@@ -594,6 +594,6 @@ The platform now meets enterprise-level security and compliance requirements, su
 ## References
 - [PHASE5_SUMMARY.md](PHASE5_SUMMARY.md) - Technical specifications
 - [PHASE5_GUIDE.md](PHASE5_GUIDE.md) - User guide
-- [DR_FAILOVER_STRATEGY.md](DR_FAILOVER_STRATEGY.md) - DR procedures
-- [ROADMAP.md](ROADMAP.md) - Project roadmap
-- [SECURITY.md](SECURITY.md) - Security guidelines
+- [DR_FAILOVER_STRATEGY.md](../../strategy/DR_FAILOVER_STRATEGY.md) - DR procedures
+- [ROADMAP.md](../../guides/ROADMAP.md) - Project roadmap
+- [SECURITY.md](../../guides/SECURITY.md) - Security guidelines
