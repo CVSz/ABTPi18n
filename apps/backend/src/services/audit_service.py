@@ -8,7 +8,6 @@ import json
 from datetime import datetime, timedelta
 from typing import Optional, Dict, Any, List
 from prisma import Prisma
-from fastapi import Request
 
 # Sensitive fields to sanitize from logs
 SENSITIVE_FIELDS = os.getenv("AUDIT_SENSITIVE_FIELDS", "password,secret,token,api_key").split(",")
