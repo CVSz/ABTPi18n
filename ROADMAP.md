@@ -23,7 +23,9 @@
 - ✅ Dynamic Theme / Config GUI
 - ✅ เพิ่มภาษาใหม่ (จีน, ญี่ปุ่น)
 
-## Phase 4: Advanced Risk & Monetization
+## Phase 4: Advanced Risk & Monetization (กำลังดำเนินการ 🚧)
+- **Summary**: [PHASE4_SUMMARY.md](PHASE4_SUMMARY.md)
+- **Guide**: [PHASE4_GUIDE.md](PHASE4_GUIDE.md)
 - PromptPay Top-up Flow (QR / Callback)
 - Rental Contract Expiry Enforcement
 - Module Plugin Loader (Entry Point)
