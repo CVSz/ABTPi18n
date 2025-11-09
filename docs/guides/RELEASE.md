@@ -8,7 +8,41 @@ The project uses semantic versioning (MAJOR.MINOR.PATCH) and publishes Docker im
 
 ## Creating a New Release
 
-### Method 1: Manual Tag (Recommended for Production)
+### Method 1: Using the Release Script (Recommended)
+
+The easiest way to create a release is using the provided `release.sh` script:
+
+1. **Update CHANGELOG.md**
+   - Add a new version section at the top
+   - Document all changes, additions, fixes, and security updates
+   - Follow the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format
+
+2. **Commit and Push Changes**
+   ```bash
+   git add CHANGELOG.md
+   git commit -m "chore: prepare release v1.0.0"
+   git push origin main
+   ```
+
+3. **Run the Release Script**
+   ```bash
+   ./release.sh 1.0.0
+   ```
+   The script will:
+   - Verify you're on the correct branch
+   - Check that CHANGELOG.md is updated
+   - Create an annotated git tag
+   - Prompt you to push the tag to GitHub
+   - Display instructions for monitoring the release workflow
+
+4. **Automated Workflow**
+   - The `release.yml` workflow will automatically:
+     - Create a GitHub release with changelog notes
+     - Build Docker images for frontend and backend
+     - Tag images with version numbers
+     - Push images to ghcr.io
+
+### Method 2: Manual Tag
 
 1. **Update CHANGELOG.md**
    - Add a new version section at the top
@@ -35,7 +69,7 @@ The project uses semantic versioning (MAJOR.MINOR.PATCH) and publishes Docker im
      - Tag images with version numbers
      - Push images to ghcr.io
 
-### Method 2: Manual Workflow Dispatch
+### Method 3: Manual Workflow Dispatch
 
 1. **Update CHANGELOG.md** (same as Method 1)
 
