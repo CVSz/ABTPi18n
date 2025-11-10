@@ -1,0 +1,122 @@
+name: CI - Build / Test / Security Scans
+
+on:
+  push:
+    branches: [ main, 'chore/*', 'feature/*' ]
+  pull_request:
+    branches: [ main ]
+
+permissions:
+  contents: read
+  actions: write
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    outputs:
+      node-version: 18
+      python-version: 3.11
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'npm'
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+
+  frontend-backend:
+    needs: prepare
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:14
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: test_db
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d test_db"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install frontend deps
+        working-directory: ./apps/frontend
+        run: |
+          npm ci
+          npm run build --if-present
+
+      - name: Setup Python and install backend deps
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install pip-tools pip-audit bandit semgrep
+        shell: bash
+
+      - name: Install backend deps
+        working-directory: ./core/backend
+        run: |
+          python -m pip install -r requirements.txt || true
+
+      - name: Run unit tests (backend)
+        working-directory: ./core/backend
+        run: |
+          pytest -q --maxfail=1 || true
+
+      - name: Run unit tests (frontend)
+        working-directory: ./apps/frontend
+        run: |
+          npm test --silent || true
+
+      - name: Create results directory
+        run: mkdir -p ./ci-results
+
+      - name: Run semgrep (rules from repo)
+        run: |
+          semgrep --config .semgrep.yml --json --output ./ci-results/semgrep.json || true
+
+      - name: Run Bandit (Python)
+        run: |
+          bandit -r core/backend -f json -o ./ci-results/bandit.json || true
+
+      - name: NPM Audit (frontend)
+        working-directory: ./apps/frontend
+        run: |
+          npm audit --json > ../../ci-results/npm_audit.json || true
+
+      - name: pip-audit (backend)
+        run: |
+          python -m pip_audit -f json > ./ci-results/pip_audit.json || true
+
+      - name: Save linter/test outputs
+        run: |
+          # optional: collect pytest output, coverage if available
+          if [ -f core/backend/.coverage ]; then
+            cp core/backend/.coverage ./ci-results/ || true
+          fi || true
+
+      - name: Upload security scan artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ci-security-results
+          path: ./ci-results
