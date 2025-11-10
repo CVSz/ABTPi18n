@@ -112,7 +112,7 @@ rewrite_markdown_links() {
     
     # Use perl for more precise regex replacement
     # Only rewrite markdown links pointing to docs/ or tools/ .md files
-    perl -pe '
+    if perl -pe '
         # Match markdown links [text](docs/path/file.md) or [text](tools/path/file.md)
         s{\]\((docs|tools)/([^)]+\.md)\)}{
             my $prefix = $1;
@@ -123,9 +123,7 @@ rewrite_markdown_links() {
             $path =~ s{/}{-}g;
             "](" . $path . ")";
         }ge;
-    ' "$file" > "$temp_file"
-    
-    if [ $? -eq 0 ]; then
+    ' "$file" > "$temp_file"; then
         mv "$temp_file" "$file"
     else
         rm -f "$temp_file"
@@ -166,7 +164,8 @@ copy_assets() {
         # Preserve directory structure under assets/
         # Example: docs/images/diagram.svg -> assets/docs/images/diagram.svg
         local dest_path="assets/$asset_path"
-        local dest_dir="$(dirname "$dest_path")"
+        local dest_dir
+        dest_dir="$(dirname "$dest_path")"
         
         if [ "$DRY_RUN" -eq 1 ]; then
             echo "  [DRY RUN] Would copy: $asset_path -> $dest_path"
@@ -189,13 +188,11 @@ rewrite_asset_paths() {
     local temp_file="${file}.assets.$$"
     
     # Rewrite image paths: ![alt](docs/path/img.ext) -> ![alt](assets/docs/path/img.ext)
-    perl -pe '
+    if perl -pe '
         s{!\[([^]]*)\]\((docs|tools)/([^)]+\.(png|jpg|jpeg|gif|svg|webp))\)}{
             "![" . $1 . "](assets/" . $2 . "/" . $3 . ")";
         }ge;
-    ' "$file" > "$temp_file"
-    
-    if [ $? -eq 0 ]; then
+    ' "$file" > "$temp_file"; then
         mv "$temp_file" "$file"
     else
         rm -f "$temp_file"
