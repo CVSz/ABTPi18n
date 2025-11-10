@@ -9,10 +9,12 @@ from .rsi_cross_strategy import RSICrossStrategy
 from .mean_reversion_strategy import MeanReversionStrategy
 from .breakout_strategy import BreakoutStrategy
 from .vwap_strategy import VWAPStrategy
+from .tradingview_strategy import TradingViewStrategy
 
 __all__ = [
     "RSICrossStrategy",
     "MeanReversionStrategy", 
     "BreakoutStrategy",
-    "VWAPStrategy"
+    "VWAPStrategy",
+    "TradingViewStrategy"
 ]
