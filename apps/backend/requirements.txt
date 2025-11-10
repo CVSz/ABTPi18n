@@ -43,3 +43,6 @@ psutil==5.9.6
 # Phase 6: Machine Learning
 scikit-learn==1.5.0
 scipy==1.11.4
+# Google Drive integration and YAML config
+gdown==5.1.0
+pyyaml==6.0.1

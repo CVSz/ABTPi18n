@@ -62,3 +62,6 @@ Thumbs.db
 .turbo
 *.tsbuildinfo
 next-env.d.ts
+
+# External assets (Google Drive downloads)
+external/drive_assets/
