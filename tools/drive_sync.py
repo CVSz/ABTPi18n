@@ -5,6 +5,7 @@ import argparse
 import os
 import sys
 from pathlib import Path
+from urllib.parse import urlparse
 
 def parse_folder_id(link_or_id: str) -> str:
     """
@@ -14,7 +15,9 @@ def parse_folder_id(link_or_id: str) -> str:
       <FOLDER_ID>
     """
     txt = link_or_id.strip()
-    if "drive.google.com" in txt:
+    parsed = urlparse(txt)
+    # Check if input is a Google Drive folder URL
+    if parsed.scheme in ("http", "https") and parsed.hostname == "drive.google.com":
         # Expecting .../drive/folders/<ID>
         parts = txt.split("/folders/")
         if len(parts) >= 2:
