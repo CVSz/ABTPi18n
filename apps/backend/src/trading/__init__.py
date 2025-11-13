@@ -16,13 +16,13 @@ from .breakout_strategy import BreakoutStrategy
 from .vwap_strategy import VWAPStrategy
 from .macd_cross_strategy import MACDCrossStrategy
 from .moving_average_cross_strategy import MovingAverageCrossStrategy  # <-- ADD THIS LINE
-from .candle_pattern_oscillator_strategy import candle_pattern_oscillator_strategy
+from .candle_pattern_oscillator_strategy import CandlePatternOscillatorStrategy
 __all__ = [
     "RSICrossStrategy",
-    "MeanReversionStrategy", 
+    "MeanReversionStrategy",
     "BreakoutStrategy",
     "VWAPStrategy",
     "MACDCrossStrategy",
     "MovingAverageCrossStrategy",
-    "candle_pattern_oscillator_strategy",  # <-- ADD THIS LINE
+    "CandlePatternOscillatorStrategy",
 ]
