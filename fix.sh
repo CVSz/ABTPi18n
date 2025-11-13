@@ -33,7 +33,7 @@ ensure_schema(){
 
 low_space_prune(){
   local free_mb
-  free_mb="$(df -Pm "$ROOT_DIR" | awk 'NR==2{print $4}')"
+  free_mb=$(df -P -m "$ROOT_DIR" | awk 'NR==2{print $4}')
   say "Free space: ${free_mb} MB"
   if (( free_mb < DISK_THRESHOLD_MB )); then
     warn "Low disk space -> prune"
