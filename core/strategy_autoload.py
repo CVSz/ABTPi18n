@@ -39,9 +39,10 @@ def load_external_strategies(search_dir: str = "strategies/external") -> List[st
                         try:
                             StrategyRegistry.register(obj)
                             registered.append(name)
-                        except Exception:
-                            # Ignore duplicates or bad classes
-                            pass
+                        except Exception as e:
+                            # Ignore duplicates or bad classes, but log the error for debugging.
+                            import logging
+                            logging.warning(f"Could not register strategy '{name}' from {py_file}: {e}", exc_info=True)
         except Exception as e:
             # Avoid crashing init due to external file issues; surface minimal info
             print(f"[strategy_autoload] Skipped {py_file}: {e}")
