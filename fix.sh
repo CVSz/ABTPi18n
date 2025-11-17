@@ -200,7 +200,7 @@ main() {
         exit 1
     fi
     
-    if ! command_exists docker compose; then
+    if ! docker compose version >/dev/null 2>&1; then
         log_error "Docker Compose is required but not found"
         exit 1
     fi
