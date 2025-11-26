@@ -2,7 +2,7 @@
 
 <div align="center">
 
-[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-1.0.1-blue.svg)](CHANGELOG.md)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/)
 [![Node](https://img.shields.io/badge/node-18+-green.svg)](https://nodejs.org/)
@@ -34,6 +34,7 @@ ABTPro i18n is a comprehensive automated trading platform designed for professio
 - **FastAPI Backend** with Celery worker loops for distributed task execution
 - **Next.js Frontend** with App Router and react-i18next for seamless i18n
 - **Strategy Engine** with plug-in architecture (includes RSI Cross, Mean Reversion, Breakout, VWAP)
+- **TradingView Integration** with webhook support for external alerts and strategies
 - **Risk Management** with max drawdown tracking and circuit breakers
 - **Real-time Market Data** via WebSocket streaming
 
@@ -177,7 +178,7 @@ See the [Strategy Development Guide](docs/strategy/STRATEGY_GUIDE.md) for detail
 
 ## 📚 Documentation
 
-All documentation is organized in the [`docs/`](docs/) directory.
+All documentation is organized in the [`docs/`](docs/) directory and is also available on the [**GitHub Wiki**](https://github.com/ZeaZDev/ABTPi18n/wiki) for easier browsing.
 
 ### Core Documentation
 - **[Contributing Guide](docs/guides/CONTRIBUTING.md)** - Development setup and workflow
@@ -188,10 +189,14 @@ All documentation is organized in the [`docs/`](docs/) directory.
 ### Setup & Configuration
 - [GitHub Setup](docs/setup/GITHUB-SETUP.md) - Configuring GitHub Secrets
 - [Platform Requirements](docs/setup/INSTALLER_PLATFORM_REQUIREMENTS.md) - System requirements
+- [TradingView Integration](docs/integrations/TRADINGVIEW_INTEGRATION.md) - Connect TradingView alerts
 
 ### Strategy Development & DR
 - [Strategy Guide](docs/strategy/STRATEGY_GUIDE.md) - Building trading strategies
 - [DR/Failover Strategy](docs/strategy/DR_FAILOVER_STRATEGY.md) - Disaster recovery planning
+
+### Tools & Utilities
+- **[Picture Overview Program](tools/README_SCREENSHOTS.md)** - Automated screenshot capture for all pages across all languages
 
 ### Phase Documentation
 - **Phase 1** (Foundation): [Guide](docs/phases/phase1/PHASE1_GUIDE.md) | [Summary](docs/phases/phase1/PHASE1_SUMMARY.md) | [Implementation](docs/phases/phase1/PHASE1_IMPLEMENTATION_SUMMARY.md)
@@ -218,7 +223,7 @@ For detailed security information, see [SECURITY.md](docs/guides/SECURITY.md).
 
 ## 🚢 Releases
 
-**Current Version**: 1.0.0 - [View Release Notes](CHANGELOG.md)
+**Current Version**: 1.0.1 - [View Release Notes](CHANGELOG.md)
 
 ### Creating a New Release
 
