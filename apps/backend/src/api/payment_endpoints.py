@@ -4,9 +4,11 @@
 // Author: ZeaZDev Meta-Intelligence (Generated) //
 // --- DO NOT EDIT HEADER --- //"""
 
-from fastapi import APIRouter, Header, Depends
-from pydantic import BaseModel
 from typing import Optional
+
+from fastapi import APIRouter, Depends, Header
+from pydantic import BaseModel
+
 from src.services.promptpay_service import PromptPayService
 from src.utils.dependencies import get_current_user_id
 from src.utils.exceptions import handle_service_error
@@ -29,8 +31,7 @@ class WebhookPayload(BaseModel):
 
 @router.post("/promptpay/create")
 async def create_promptpay_payment(
-    request: TopupRequest,
-    user_id: int = Depends(get_current_user_id)
+    request: TopupRequest, user_id: int = Depends(get_current_user_id)
 ):
     """Generate PromptPay QR code for payment"""
     try:
@@ -38,7 +39,7 @@ async def create_promptpay_payment(
             user_id=user_id,
             amount=request.amount,
             currency=request.currency,
-            description=request.description
+            description=request.description,
         )
         return result
     except Exception as e:
@@ -47,8 +48,7 @@ async def create_promptpay_payment(
 
 @router.post("/webhook/promptpay")
 async def promptpay_webhook(
-    payload: WebhookPayload,
-    x_webhook_signature: Optional[str] = Header(None)
+    payload: WebhookPayload, x_webhook_signature: Optional[str] = Header(None)
 ):
     """Handle PromptPay payment webhook callbacks"""
     try:
@@ -57,22 +57,20 @@ async def promptpay_webhook(
             # In production, verify the signature
             # is_valid = promptpay_service.verify_webhook_signature(...)
             pass
-        
+
         result = await promptpay_service.process_payment_callback(
             reference_id=payload.reference_id,
             status=payload.status,
-            metadata=payload.metadata
+            metadata=payload.metadata,
         )
-        
+
         return result
     except Exception as e:
         handle_service_error(e)
 
 
 @router.get("/wallet")
-async def get_wallet_balance(
-    user_id: int = Depends(get_current_user_id)
-):
+async def get_wallet_balance(user_id: int = Depends(get_current_user_id)):
     """Get user wallet balance"""
     try:
         balance = await promptpay_service.get_wallet_balance(user_id)
@@ -83,16 +81,12 @@ async def get_wallet_balance(
 
 @router.get("/transactions")
 async def get_transaction_history(
-    user_id: int = Depends(get_current_user_id),
-    limit: int = 50,
-    offset: int = 0
+    user_id: int = Depends(get_current_user_id), limit: int = 50, offset: int = 0
 ):
     """Get transaction history"""
     try:
         transactions = await promptpay_service.get_transaction_history(
-            user_id=user_id,
-            limit=limit,
-            offset=offset
+            user_id=user_id, limit=limit, offset=offset
         )
         return {"transactions": transactions, "count": len(transactions)}
     except Exception as e:

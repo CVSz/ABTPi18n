@@ -4,9 +4,11 @@
 // Author: ZeaZDev Meta-Intelligence (Generated) //
 // --- DO NOT EDIT HEADER --- //"""
 
+from typing import Optional
+
 from fastapi import APIRouter, Depends
 from pydantic import BaseModel
-from typing import Optional
+
 from src.services.portfolio_service import PortfolioService
 from src.utils.dependencies import get_current_user_id
 from src.utils.exceptions import handle_service_error
@@ -22,9 +24,7 @@ class CreateAccountRequest(BaseModel):
 
 
 @router.get("/summary")
-async def get_portfolio_summary(
-    user_id: int = Depends(get_current_user_id)
-):
+async def get_portfolio_summary(user_id: int = Depends(get_current_user_id)):
     """Get aggregated portfolio summary"""
     try:
         summary = await portfolio_service.get_portfolio_summary(user_id)
@@ -34,9 +34,7 @@ async def get_portfolio_summary(
 
 
 @router.get("/accounts")
-async def list_accounts(
-    user_id: int = Depends(get_current_user_id)
-):
+async def list_accounts(user_id: int = Depends(get_current_user_id)):
     """List all accounts"""
     try:
         accounts = await portfolio_service.list_accounts(user_id)
@@ -47,8 +45,7 @@ async def list_accounts(
 
 @router.post("/accounts")
 async def create_account(
-    request: CreateAccountRequest,
-    user_id: int = Depends(get_current_user_id)
+    request: CreateAccountRequest, user_id: int = Depends(get_current_user_id)
 ):
     """Create a new account"""
     try:
@@ -56,7 +53,7 @@ async def create_account(
             user_id=user_id,
             exchange_key_id=request.exchange_key_id,
             label=request.label,
-            group=request.group
+            group=request.group,
         )
         return account
     except Exception as e:
@@ -64,10 +61,7 @@ async def create_account(
 
 
 @router.delete("/accounts/{account_id}")
-async def delete_account(
-    account_id: int,
-    user_id: int = Depends(get_current_user_id)
-):
+async def delete_account(account_id: int, user_id: int = Depends(get_current_user_id)):
     """Delete an account"""
     try:
         result = await portfolio_service.delete_account(account_id, user_id)

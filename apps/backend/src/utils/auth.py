@@ -4,8 +4,9 @@
 // Author: ZeaZDev Meta-Intelligence //
 // --- DO NOT EDIT HEADER --- //"""
 
+from typing import Any, Dict
+
 from fastapi import Response
-from typing import Dict, Any
 
 
 def create_session_response(
@@ -13,18 +14,18 @@ def create_session_response(
     email: str,
     profile_picture: str,
     session_token: str,
-    response: Response
+    response: Response,
 ) -> Dict[str, Any]:
     """
     Create a standardized session response with secure cookie
-    
+
     Args:
         user_id: User ID
         email: User email
         profile_picture: User profile picture URL
         session_token: Generated session token
         response: FastAPI Response object to set cookie on
-        
+
     Returns:
         Dict with user info and login status
     """
@@ -35,12 +36,12 @@ def create_session_response(
         httponly=True,
         secure=True,  # Requires HTTPS in production
         max_age=86400 * 7,  # 7 days
-        samesite="lax"
+        samesite="lax",
     )
-    
+
     return {
         "user_id": user_id,
         "email": email,
         "profile_picture": profile_picture,
-        "status": "LOGIN_SUCCESS"
+        "status": "LOGIN_SUCCESS",
     }

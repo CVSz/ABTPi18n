@@ -4,8 +4,8 @@
 // Author: ZeaZDev Meta-Intelligence //
 // --- DO NOT EDIT HEADER --- //"""
 
+
 from fastapi import HTTPException
-from typing import Any
 
 
 def raise_bad_request(detail: str) -> None:
@@ -26,10 +26,10 @@ def raise_internal_error(error: Exception) -> None:
 def handle_service_error(error: Exception) -> None:
     """
     Handle service layer errors by raising appropriate HTTP exceptions
-    
+
     Args:
         error: The exception to handle
-        
+
     Raises:
         HTTPException: With appropriate status code
     """

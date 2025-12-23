@@ -1,5 +1,14 @@
 # Changelog
 
+## [Unreleased] - 2025-12-23
+
+### Added
+- MetaUltra deep-dive documentation under `docs/metaultra/` (overview, features, options, functions, algorithms, source logic, source code, data structures, modular architecture)
+- Automated installer/generator `scripts/zeaz_meta_installer.sh` with preview, generate, install, and release modes
+- Example modules under `tools/metaultra/` (Python and TypeScript) and `scripts/validate-metaultra.sh`
+- CI workflow `.github/workflows/metaultra.yml` to run preview and validation
+- `package.json` scripts: `generate-metaultra`, `install-metaultra`, `preview-metaultra`, `validate-metaultra`
+
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
