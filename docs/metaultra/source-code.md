@@ -1,23 +1,35 @@
-# Source Code, Examples & Snippets
+# Source Code & Examples — Reference and How-to
 
-This file points to canonical example modules and short snippets for quick reference.
+This page contains canonical examples, loading patterns, and quick snippets to help consumers integrate MetaUltra modules.
 
-## Example Layout
-- `tools/metaultra/example_module.py` — Python example with lifecycle hooks
-- `tools/metaultra/example_module.ts` — TypeScript example for frontend integration
+Directory layout (recommended)
+```
+tools/metaultra/
+	├── example_module.py       # Python example strategy
+	├── example_module.ts       # TypeScript example strategy
+	└── templates/              # Scaffolding for new modules
+```
 
-## Snippet: Loading a Module (Python)
+Loading a Python module dynamically
 ```py
 import importlib
-module = importlib.import_module('tools.metaultra.example_module')
-strategy = module.ExampleStrategy({'name':'demo'})
+
+mod = importlib.import_module('tools.metaultra.example_module')
+StrategyClass = getattr(mod, 'ExampleStrategy')
+strategy = StrategyClass({'name': 'demo'})
 ```
 
-## Snippet: Minimal TypeScript Interface
+Minimal TypeScript usage
 ```ts
-export interface StrategyConfig { name: string; params?: Record<string, any> }
+import { ExampleStrategy } from '../../tools/metaultra/example_module'
+const s = new ExampleStrategy({ name: 'demo' })
+s.onTick({ price: 123.4 })
 ```
 
-## Notes
-- Keep examples small and readable; the goal is pedagogical clarity
-- Cross-reference functions.md and algorithms.md for behavioral context
+Testing and smoke checks
+- Python: `python -m pytest tests/test_metaultra_example.py` (fixtures in `tests/fixtures/`)
+- TypeScript: add a small Jest test under `tools/metaultra/__tests__/` that imports compiled JS or uses `ts-jest`.
+
+Notes
+- Keep examples intentionally minimal and well-documented to serve as onboarding artifacts for new contributors.
+- Ensure `meta.json` exists for any module intended for packaging.

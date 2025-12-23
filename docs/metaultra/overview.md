@@ -1,21 +1,28 @@
-# MetaUltra: Ultra-High-Level Overview
+# MetaUltra — Final Release Deep Dive
 
-## Purpose
-MetaUltra provides a consolidated, opinionated set of deep-dive documents and an automated Bash generator/installer that lets maintainers produce a "full final release" bundle of documentation, example modules, templates, and validation scripts.
+This section contains the final-release quality deep-dive for MetaUltra: design rationale, features, options, APIs, algorithms, example source, data schemas, and packaging rules. It is intended as the authoritative reference for maintainers preparing a stable release.
 
-## Scope
-- End-to-end documentation covering features, options, functions, algorithms, source logic, and data structures.
-- A fully automated, idempotent Bash generator/installer to preview, generate, and optionally install artifacts.
-- Example modules (Python and TypeScript) demonstrating modular architecture and data structures.
+Goals
+- Explain architecture and design decisions so reviewers can reason about trade-offs.
+- Provide reproducible examples (Python + TypeScript) and manifest metadata for distribution.
+- Supply an automated, idempotent generator/installer to produce release artifacts and a release tarball.
 
-## Audience
-Engineers who need an authoritative, release-quality reference that explains why the system is designed as-is and provides ready-to-use artifacts for release packaging.
+Who should read this
+- Release engineers packaging MetaUltra artifacts.
+- Developers implementing or auditing strategies, algorithms, or integrators.
+- Security reviewers and auditors who need clear data-flow and schema descriptions.
 
-## Quick start
-1. Preview generation: `bash scripts/zeaz_meta_installer.sh --preview`
-2. Generate artifacts locally: `bash scripts/zeaz_meta_installer.sh --generate`
-3. Install into the repository: `bash scripts/zeaz_meta_installer.sh --install`
+Release Quick Start
+1. Preview planned changes: `bash scripts/zeaz_meta_installer.sh --preview`
+2. Generate a local bundle: `bash scripts/zeaz_meta_installer.sh --generate`
+3. Validate artifacts: `bash scripts/validate-metaultra.sh`
+4. Create release tarball: `bash scripts/zeaz_meta_installer.sh --release`
+5. Install into repo (idempotent): `bash scripts/zeaz_meta_installer.sh --install`
 
----
+Release checklist (short)
+- Confirm `meta.json` manifest describes each module and entrypoint.
+- Ensure examples import and run (Python: `python tools/metaultra/example_module.py`; TS: `node`/`ts-node` test).
+- Run `scripts/validate-metaultra.sh` and CI lint/test workflows.
+- Update `CHANGELOG.md` with Unreleased -> version and tag the repo.
 
-For deeper topics, follow the TOC in `_index.md`.
+For detailed topics, see the linked pages in the MetaUltra TOC.

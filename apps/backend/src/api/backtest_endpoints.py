@@ -4,10 +4,12 @@
 // Author: ZeaZDev Meta-Intelligence (Generated) //
 // --- DO NOT EDIT HEADER --- //"""
 
+from datetime import datetime
+from typing import Any, Dict, Optional
+
 from fastapi import APIRouter, Depends
 from pydantic import BaseModel
-from typing import Optional, Dict, Any
-from datetime import datetime
+
 from src.backtesting.backtest_service import BacktestService
 from src.utils.dependencies import get_current_user_id
 from src.utils.exceptions import handle_service_error
@@ -21,7 +23,7 @@ class BacktestRequest(BaseModel):
     symbol: str
     timeframe: str
     start_date: str  # ISO format
-    end_date: str    # ISO format
+    end_date: str  # ISO format
     initial_capital: float = 10000.0
     parameters: Optional[Dict[str, Any]] = None
 
@@ -40,15 +42,14 @@ class StopPaperTradingRequest(BaseModel):
 
 @router.post("/run")
 async def create_backtest(
-    request: BacktestRequest,
-    user_id: int = Depends(get_current_user_id)
+    request: BacktestRequest, user_id: int = Depends(get_current_user_id)
 ):
     """Create and run a backtest"""
     try:
         # Parse dates
-        start_date = datetime.fromisoformat(request.start_date.replace('Z', '+00:00'))
-        end_date = datetime.fromisoformat(request.end_date.replace('Z', '+00:00'))
-        
+        start_date = datetime.fromisoformat(request.start_date.replace("Z", "+00:00"))
+        end_date = datetime.fromisoformat(request.end_date.replace("Z", "+00:00"))
+
         # Create backtest
         backtest = await backtest_service.create_backtest(
             user_id=user_id,
@@ -58,22 +59,19 @@ async def create_backtest(
             start_date=start_date,
             end_date=end_date,
             initial_capital=request.initial_capital,
-            parameters=request.parameters
+            parameters=request.parameters,
         )
-        
+
         # Run backtest (in production, this would be queued in Celery)
         result = await backtest_service.run_backtest(backtest["backtest_id"])
-        
+
         return result
     except Exception as e:
         handle_service_error(e)
 
 
 @router.get("/runs")
-async def list_backtests(
-    user_id: int = Depends(get_current_user_id),
-    limit: int = 50
-):
+async def list_backtests(user_id: int = Depends(get_current_user_id), limit: int = 50):
     """List all backtest runs"""
     try:
         backtests = await backtest_service.list_user_backtests(user_id, limit)
@@ -93,10 +91,7 @@ async def get_backtest_results(run_id: int):
 
 
 @router.delete("/runs/{run_id}")
-async def delete_backtest(
-    run_id: int,
-    user_id: int = Depends(get_current_user_id)
-):
+async def delete_backtest(run_id: int, user_id: int = Depends(get_current_user_id)):
     """Delete a backtest run"""
     try:
         result = await backtest_service.delete_backtest(run_id, user_id)
@@ -107,10 +102,10 @@ async def delete_backtest(
 
 # Paper Trading Endpoints
 
+
 @router.post("/paper/start")
 async def start_paper_trading(
-    request: PaperTradingRequest,
-    user_id: int = Depends(get_current_user_id)
+    request: PaperTradingRequest, user_id: int = Depends(get_current_user_id)
 ):
     """Start a paper trading session"""
     try:
@@ -120,7 +115,7 @@ async def start_paper_trading(
             symbol=request.symbol,
             timeframe=request.timeframe,
             virtual_balance=request.virtual_balance,
-            parameters=request.parameters
+            parameters=request.parameters,
         )
         return session
     except Exception as e:
@@ -129,8 +124,7 @@ async def start_paper_trading(
 
 @router.post("/paper/stop")
 async def stop_paper_trading(
-    request: StopPaperTradingRequest,
-    user_id: int = Depends(get_current_user_id)
+    request: StopPaperTradingRequest, user_id: int = Depends(get_current_user_id)
 ):
     """Stop a paper trading session"""
     try:
@@ -152,12 +146,13 @@ async def get_paper_trading_status(session_id: int):
 
 @router.get("/paper/sessions")
 async def list_paper_trading_sessions(
-    user_id: int = Depends(get_current_user_id),
-    active_only: bool = False
+    user_id: int = Depends(get_current_user_id), active_only: bool = False
 ):
     """List paper trading sessions"""
     try:
-        sessions = await backtest_service.list_paper_trading_sessions(user_id, active_only)
+        sessions = await backtest_service.list_paper_trading_sessions(
+            user_id, active_only
+        )
         return {"sessions": sessions, "count": len(sessions)}
     except Exception as e:
         handle_service_error(e)

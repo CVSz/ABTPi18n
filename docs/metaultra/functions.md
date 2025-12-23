@@ -1,24 +1,46 @@
 # Functions, Interfaces & Contracts
 
-This document outlines the top-level functions and interface contracts that MetaUltra exposes via its example modules and templates.
+This page lists recommended interfaces, lifecycle hooks, and the contract rules used by MetaUltra modules.
 
-## Example Interface (Python)
+Design principles
+- Small surface area per module: each plugin exposes a small set of deterministic functions.
+- Declarative metadata: `meta.json` describes entrypoints and schemas so tools can load modules dynamically.
+- Side-effect transparency: any I/O or DB writes must be documented in the module manifest.
+
+Python example: Strategy contract
 ```py
+from typing import Dict, Any, List
+
 class StrategyInterface:
-    def __init__(self, config: dict):
-        """Initialize with a validated config"""
+    def __init__(self, config: Dict[str, Any]):
+        """Initialize with a validated config (must conform to JSON Schema in meta.json)."""
 
-    def on_tick(self, tick: dict) -> None:
-        """Process a market tick"""
+    async def on_tick(self, tick: Dict[str, Any]) -> None:
+        """Handle a market tick; may be async for I/O friendly implementations."""
 
-    def generate_signals(self) -> list:
-        """Return a list of signals"""
+    def generate_signals(self) -> List[Dict[str, Any]]:
+        """Return a deterministic list of signals; side-effects should be avoided here."""
+
+    def metadata(self) -> Dict[str, Any]:
+        """Return runtime metadata (name, version, last_run, metrics)."""
 ```
 
-## Interface Notes
-- Interfaces are intentionally minimal; implementations should be composable and stateless where possible
-- Respect typed contracts and document side-effects (I/O, network, DB)
+TypeScript example: strategy interface
+```ts
+export interface StrategyConfig { name: string; params?: Record<string, any> }
 
-## Advanced: Hooking into the generator
-- The generator produces `meta.json` with metadata describing all included modules and their entrypoints
-- Consumers may use the `meta.json` to dynamically load modules in other contexts
+export interface Strategy {
+  onTick(tick: { price: number; time?: string }): Promise<void> | void
+  generateSignals(): Array<{ signal: string; score?: number }>
+}
+```
+
+Manifest contract (`meta.json`)
+- `name`: module name
+- `version`: semver
+- `entrypoint`: module:path (e.g., `tools.metaultra.example_module:ExampleStrategy`)
+- `schema`: JSON Schema for config
+
+Loader behavior
+- Tools should validate config against `schema` before instantiating entrypoints.
+- Loaders may skip modules that fail schema validation and emit a clear warning referencing the `meta.json` path.
