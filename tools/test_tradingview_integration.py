@@ -14,8 +14,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent / "apps" / "backend"))
 
 
-def test_pydantic_models():
-    """Test Pydantic models can be instantiated"""
+def check_pydantic_models():
+    """Check Pydantic models can be instantiated."""
     print("\n=== Testing Pydantic Models ===")
 
     try:
@@ -23,7 +23,6 @@ def test_pydantic_models():
 
         from pydantic import BaseModel
 
-        # Simplified version of TradingViewAlert for testing
         class TestAlert(BaseModel):
             ticker: str
             action: str
@@ -32,10 +31,8 @@ def test_pydantic_models():
         alert = TestAlert(ticker="BTCUSDT", action="BUY", price=45000.50)
         print(f"✓ Alert model works: {alert.ticker} {alert.action} @ {alert.price}")
 
-        # Test JSON serialization
         alert_json = alert.model_dump()
         print(f"✓ JSON serialization works: {json.dumps(alert_json)}")
-
         return True
     except ImportError as e:
         print(f"⚠ Skipping Pydantic test (not installed): {e}")
@@ -45,12 +42,11 @@ def test_pydantic_models():
         return False
 
 
-def test_strategy_logic():
-    """Test TradingView strategy logic"""
+def check_strategy_logic():
+    """Check TradingView strategy logic."""
     print("\n=== Testing Strategy Logic ===")
 
     try:
-        # Mock strategy class for testing
         class MockTradingViewStrategy:
             name = "TRADINGVIEW"
 
@@ -84,7 +80,6 @@ def test_strategy_logic():
                     "meta": {"source": "TRADINGVIEW"},
                 }
 
-        # Test 1: Valid BUY signal
         strategy = MockTradingViewStrategy(min_confidence=0.7)
         result = strategy.execute(
             ticker_data={
@@ -97,12 +92,9 @@ def test_strategy_logic():
             context={"symbol": "BTC/USDT"},
         )
         assert result["signal"] == "BUY", f"Expected BUY, got {result['signal']}"
-        assert (
-            result["confidence"] == 0.85
-        ), f"Expected 0.85, got {result['confidence']}"
+        assert result["confidence"] == 0.85, f"Expected 0.85, got {result['confidence']}"
         print("✓ Test 1: Valid BUY signal - PASSED")
 
-        # Test 2: Low confidence (should return HOLD)
         result = strategy.execute(
             ticker_data={"tradingview_alert": {"action": "BUY", "confidence": 0.5}},
             context={"symbol": "BTC/USDT"},
@@ -110,12 +102,10 @@ def test_strategy_logic():
         assert result["signal"] == "HOLD", f"Expected HOLD, got {result['signal']}"
         print("✓ Test 2: Low confidence filter - PASSED")
 
-        # Test 3: No alert data
         result = strategy.execute(ticker_data={}, context={"symbol": "BTC/USDT"})
         assert result["signal"] == "HOLD", f"Expected HOLD, got {result['signal']}"
         print("✓ Test 3: No alert data - PASSED")
 
-        # Test 4: CLOSE action converts to SELL
         result = strategy.execute(
             ticker_data={"tradingview_alert": {"action": "CLOSE", "confidence": 0.9}},
             context={"symbol": "BTC/USDT"},
@@ -132,27 +122,21 @@ def test_strategy_logic():
         return False
 
 
-def test_yaml_config():
-    """Test YAML configuration loading"""
+def check_yaml_config():
+    """Check YAML configuration loading."""
     print("\n=== Testing YAML Configuration ===")
 
     try:
         import yaml
 
-        config_path = (
-            Path(__file__).parent.parent
-            / "strategies/external/tradingview_example.yaml"
-        )
+        config_path = Path(__file__).parent.parent / "strategies/external/tradingview_example.yaml"
 
         with open(config_path, "r") as f:
             config = yaml.safe_load(f)
 
-        # Validate required fields
         assert "name" in config, "Missing 'name' field"
         assert "type" in config, "Missing 'type' field"
-        assert (
-            config["type"] == "TRADINGVIEW"
-        ), f"Expected type TRADINGVIEW, got {config['type']}"
+        assert config["type"] == "TRADINGVIEW", f"Expected type TRADINGVIEW, got {config['type']}"
 
         print(f"✓ Configuration loaded: {config['name']}")
         print(f"  Type: {config['type']}")
@@ -168,20 +152,16 @@ def test_yaml_config():
         return False
 
 
-def test_gdrive_loader_structure():
-    """Test Google Drive loader class structure"""
+def check_gdrive_loader_structure():
+    """Check Google Drive loader class structure."""
     print("\n=== Testing Google Drive Loader Structure ===")
 
     try:
-        # Test that we can parse the file structure
-        loader_path = (
-            Path(__file__).parent.parent / "apps/backend/src/services/gdrive_loader.py"
-        )
+        loader_path = Path(__file__).parent.parent / "apps/backend/src/services/gdrive_loader.py"
 
         with open(loader_path, "r") as f:
             content = f.read()
 
-        # Check for key components
         assert "class GoogleDriveLoader" in content, "Missing GoogleDriveLoader class"
         assert "download_folder" in content, "Missing download_folder method"
         assert "load_strategy_config" in content, "Missing load_strategy_config method"
@@ -198,25 +178,19 @@ def test_gdrive_loader_structure():
         return False
 
 
-def test_endpoint_structure():
-    """Test webhook endpoint structure"""
+def check_endpoint_structure():
+    """Check webhook endpoint structure."""
     print("\n=== Testing Endpoint Structure ===")
 
     try:
-        endpoints_path = (
-            Path(__file__).parent.parent
-            / "apps/backend/src/api/tradingview_endpoints.py"
-        )
+        endpoints_path = Path(__file__).parent.parent / "apps/backend/src/api/tradingview_endpoints.py"
 
         with open(endpoints_path, "r") as f:
             content = f.read()
 
-        # Check for key components
         assert "router = APIRouter()" in content, "Missing router definition"
         assert "async def tradingview_webhook" in content, "Missing webhook endpoint"
-        assert (
-            "async def list_tradingview_alerts" in content
-        ), "Missing alerts list endpoint"
+        assert "async def list_tradingview_alerts" in content, "Missing alerts list endpoint"
         assert "async def get_webhook_config" in content, "Missing config endpoint"
         assert "verify_webhook_secret" in content, "Missing webhook secret verification"
 
@@ -232,22 +206,43 @@ def test_endpoint_structure():
         return False
 
 
+CHECKS = [
+    ("Pydantic Models", check_pydantic_models),
+    ("Strategy Logic", check_strategy_logic),
+    ("YAML Configuration", check_yaml_config),
+    ("Google Drive Loader", check_gdrive_loader_structure),
+    ("Endpoint Structure", check_endpoint_structure),
+]
+
+
+def test_pydantic_models():
+    assert check_pydantic_models()
+
+
+def test_strategy_logic():
+    assert check_strategy_logic()
+
+
+def test_yaml_config():
+    assert check_yaml_config()
+
+
+def test_gdrive_loader_structure():
+    assert check_gdrive_loader_structure()
+
+
+def test_endpoint_structure():
+    assert check_endpoint_structure()
+
+
 def main():
     """Run all tests"""
     print("=" * 60)
     print("TradingView Integration Test Suite")
     print("=" * 60)
 
-    results = []
+    results = [(name, check()) for name, check in CHECKS]
 
-    # Run tests
-    results.append(("Pydantic Models", test_pydantic_models()))
-    results.append(("Strategy Logic", test_strategy_logic()))
-    results.append(("YAML Configuration", test_yaml_config()))
-    results.append(("Google Drive Loader", test_gdrive_loader_structure()))
-    results.append(("Endpoint Structure", test_endpoint_structure()))
-
-    # Summary
     print("\n" + "=" * 60)
     print("Test Summary")
     print("=" * 60)
@@ -264,9 +259,9 @@ def main():
     if passed == total:
         print("\n✓ All tests passed! TradingView integration is ready.")
         return 0
-    else:
-        print(f"\n✗ {total - passed} test(s) failed.")
-        return 1
+
+    print(f"\n✗ {total - passed} test(s) failed.")
+    return 1
 
 
 if __name__ == "__main__":
